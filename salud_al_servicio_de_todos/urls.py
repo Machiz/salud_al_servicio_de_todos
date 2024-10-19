@@ -19,8 +19,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.grafo_view, name='grafo'),
-    path('api/grafo-data/', views.grafo_data_api, name='grafo_data_api'),
+    path("", views.grafo_view),
+    path("api/grafo-data/", views.grafo_data_api),
 ]
 
 

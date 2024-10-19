@@ -16,18 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
-urlpatterns = [
-    path('', views.grafo_view, name='grafo'),
-    path('api/grafo-data/', views.grafo_data_api, name='grafo_data_api'),
-]
-
-
-# grafo_app/urls.py
-from django.urls import path
 from . import views
 
 urlpatterns = [
     path('', views.grafo_view, name='grafo'),
     path('api/grafo-data/', views.grafo_data_api, name='grafo_data_api'),
 ]
+
+
+
+# grafo_app/urls.py
+

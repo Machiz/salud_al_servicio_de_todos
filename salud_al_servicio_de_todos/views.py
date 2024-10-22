@@ -6,7 +6,7 @@ from django.http import JsonResponse
 
 def grafo_view(request):
     # Esta vista renderiza la plantilla HTML para mostrar el grafo
-    return render(request, 'Paginas\Grafo.html')
+    return render(request, 'Paginas\index.html')
 
 def grafo_data_api(request):
     # Esta vista genera y retorna los datos del grafo en formato JSON

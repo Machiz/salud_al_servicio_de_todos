@@ -1,0 +1,13 @@
+.body{
+    display: grid;
+    min-height: 90vh;
+    grid-template-rows: auto 1fr auto;
+}
+header{
+    height: 100px;
+    width: 1900px;
+    background-color: rgb(255, 0, 51);
+}
+body {
+    background-color: rgb(219, 219, 219);
+}

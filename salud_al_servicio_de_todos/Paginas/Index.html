@@ -5,47 +5,81 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Salud al servicio de todos!</h1>
-        <hr>
-    </header>
-    <p>
-        <h2>Bienvenido a salud al servicio de todos</h2>
-        <div class="text" id = "presentacion"> Esta es una plataforma abierta a todo publico, la cual tiene como objetivo ayudarte a encontrar el centro de salud mas cercano a tu ubicacion y la emergencia que tengas en Peru :D</div>
-        <br><br>
-        <form>
-            <label for="departamento">departamento  :</label>
-            <select name="departamento" id="provincia">
-                <option value="Amazonas">Amazonas</option>
-                <option value="Ancash">Ancash</option>
-                <option value="Apurimac">Apurimac</option>
-                <option value="Arequipa">Arequipa</option>
-                <option value="Ayacucho">Ayacucho</option>
-                <option value="Cajamarca">Cajamarca</option>
-                <option value="Callao">Callao</option>
-                <option value="Cusco">Cusco</option>
-                <option value="Huancavelica">Huancavelica</option>
-                <option value="Huanuco">Huanuco</option>
-                <option value="Ica">Ica</option>
-                <option value="Junin">Junin</option>
-                <option value="La Libertad">La Libertad</option>
-                <option value="Lambayeque">Lambayeque</option>
-                <option value="Lima">Lima</option>
-                <option value="Loreto">Loreto</option>
-                <option value="Madre de Dios">Madre De Dios</option>
-                <option value="Moquegua">Moquegua</option>
-                <option value="Pasco">Pasco</option>
-                <option value="Piura">Piura</option>
-                <option value="Puno">Puno</option>
-                <option value="San Martin">San Martin</option>
-                <option value="Tacna">Tacna</option>
-                <option value="Tumbes">Tumbes</option>
-                <option value="Ucayali">Ucayali</option>
-              </select>
-              <br><br>  
-            <label for="csalud">Centro de salud:</label>
-            <input type="text" id="csalud" name="csalud"><br><br>
-            <input type="submit" value="Submit">
-          </form>
-    </p>
+    <div class = "body">
+        <header>
+            <h1>Salud al servicio de todos!</h1>
+        </header>
+        <main>
+            <p>
+                <h2>Bienvenido a salud al servicio de todos</h2>
+                <div class="text" id = "presentacion"> Esta es una plataforma abierta a todo publico, la cual tiene como objetivo ayudarte a encontrar el centro de salud mas cercano a tu ubicacion y la emergencia que tengas en Peru :D</div>
+                <br><br>
+                <form>
+                    <label for="departamento">departamento  :</label>
+                    <select name="departamento" id="provincia">
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Ancash">Ancash</option>
+                        <option value="Apurimac">Apurimac</option>
+                        <option value="Arequipa">Arequipa</option>
+                        <option value="Ayacucho">Ayacucho</option>
+                        <option value="Cajamarca">Cajamarca</option>
+                        <option value="Callao">Callao</option>
+                        <option value="Cusco">Cusco</option>
+                        <option value="Huancavelica">Huancavelica</option>
+                        <option value="Huanuco">Huanuco</option>
+                        <option value="Ica">Ica</option>
+                        <option value="Junin">Junin</option>
+                        <option value="La Libertad">La Libertad</option>
+                        <option value="Lambayeque">Lambayeque</option>
+                        <option value="Lima">Lima</option>
+                        <option value="Loreto">Loreto</option>
+                        <option value="Madre de Dios">Madre De Dios</option>
+                        <option value="Moquegua">Moquegua</option>
+                        <option value="Pasco">Pasco</option>
+                        <option value="Piura">Piura</option>
+                        <option value="Puno">Puno</option>
+                        <option value="San Martin">San Martin</option>
+                        <option value="Tacna">Tacna</option>
+                        <option value="Tumbes">Tumbes</option>
+                        <option value="Ucayali">Ucayali</option>
+                      </select>
+                      <br><br>  
+                    <label for="csalud">Centro de salud:</label>
+                    <input type="text" id="csalud" name="csalud"><br><br>
+                    <input type="submit" value="Submit" id = "submit">
+                  </form>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+        
+                        // By default, submit button is disabled
+                        document.querySelector('#submit').disabled = true;
+        
+                        // Enable button only if there is text in the input field
+                        document.querySelector('#csalud').onkeyup = () => {
+                            if (document.querySelector('#csalud').value.length > 0)
+                                document.querySelector('#submit').disabled = false;
+                            else
+                                document.querySelector('#submit').disabled = true;
+                        };
+        
+                        document.querySelector('form').onsubmit = () => {
+        
+                            // Create new item for list
+                            const li = document.createElement('li');
+                            li.innerHTML = document.querySelector('#csalud').value;
+        
+                            // Clear input field and disable button again
+                            document.querySelector('#task').value = '';
+                            document.querySelector('#submit').disabled = true;
+        
+                            // Stop form from submitting
+                            return false;
+                        };
+        
+                    });
+                </script>
+        
+                </p>
+        </main>
+    </div>
 </body>

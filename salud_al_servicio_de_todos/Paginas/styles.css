@@ -11,3 +11,12 @@ header{
 body {
     background-color: rgb(219, 219, 219);
 }
+
+header{
+    font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: italic;
+  font-variation-settings:
+    "wdth" 100;
+}

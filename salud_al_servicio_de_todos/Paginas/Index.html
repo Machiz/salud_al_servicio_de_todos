@@ -3,11 +3,14 @@
 <head>
     <title>Salud al servicio de todos</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap');
+    </style>
 </head>
 <body>
     <div class = "body">
         <header>
-            <h1>Salud al servicio de todos!</h1>
+            <h1 class="head">Salud al servicio de todos!</h1>
         </header>
         <main>
             <p>
@@ -15,33 +18,34 @@
                 <div class="text" id = "presentacion"> Esta es una plataforma abierta a todo publico, la cual tiene como objetivo ayudarte a encontrar el centro de salud mas cercano a tu ubicacion y la emergencia que tengas en Peru :D</div>
                 <br><br>
                 <form>
-                    <label for="departamento">departamento  :</label>
+                    <label for="departamento">Departamento  :</label>
                     <select name="departamento" id="provincia">
-                        <option value="Amazonas">Amazonas</option>
-                        <option value="Ancash">Ancash</option>
-                        <option value="Apurimac">Apurimac</option>
-                        <option value="Arequipa">Arequipa</option>
-                        <option value="Ayacucho">Ayacucho</option>
-                        <option value="Cajamarca">Cajamarca</option>
-                        <option value="Callao">Callao</option>
-                        <option value="Cusco">Cusco</option>
-                        <option value="Huancavelica">Huancavelica</option>
-                        <option value="Huanuco">Huanuco</option>
-                        <option value="Ica">Ica</option>
-                        <option value="Junin">Junin</option>
-                        <option value="La Libertad">La Libertad</option>
-                        <option value="Lambayeque">Lambayeque</option>
-                        <option value="Lima">Lima</option>
-                        <option value="Loreto">Loreto</option>
-                        <option value="Madre de Dios">Madre De Dios</option>
-                        <option value="Moquegua">Moquegua</option>
-                        <option value="Pasco">Pasco</option>
-                        <option value="Piura">Piura</option>
-                        <option value="Puno">Puno</option>
-                        <option value="San Martin">San Martin</option>
-                        <option value="Tacna">Tacna</option>
-                        <option value="Tumbes">Tumbes</option>
-                        <option value="Ucayali">Ucayali</option>
+                        <option value="none" id = "none"></option>
+                        <option value="Amazonas" id = "amazonas">Amazonas</option>
+                        <option value="Ancash" id = "ancash">Ancash</option>
+                        <option value="Apurimac" id = "apurimac">Apurimac</option>
+                        <option value="Arequipa" id = "arequipa">Arequipa</option>
+                        <option value="Ayacucho" id = "ayacucho">Ayacucho</option>
+                        <option value="Cajamarca" id = "cajamarca">Cajamarca</option>
+                        <option value="Callao" id = "callao">Callao</option>
+                        <option value="Cusco" id = "cusco">Cusco</option>
+                        <option value="Huancavelica" id = "huancavelica">Huancavelica</option>
+                        <option value="Huanuco" id = "huanuco">Huanuco</option>
+                        <option value="Ica" id = "ica">Ica</option>
+                        <option value="Junin" id = "junin">Junin</option>
+                        <option value="La Libertad" id = "la libertad">La Libertad</option>
+                        <option value="Lambayeque" id = "lambayeque">Lambayeque</option>
+                        <option value="Lima" id = "lima">Lima</option>
+                        <option value="Loreto" id = "loreto">Loreto</option>
+                        <option value="Madre de Dios" id = "madre de dios">Madre De Dios</option>
+                        <option value="Moquegua" id = "moquegua">Moquegua</option>
+                        <option value="Pasco" id = "pasco">Pasco</option>
+                        <option value="Piura" id = "piura">Piura</option>
+                        <option value="Puno" id = "puno">Puno</option>
+                        <option value="San Martin" id = "san martin">San Martin</option>
+                        <option value="Tacna" id = "tacna">Tacna</option>
+                        <option value="Tumbes" id = "tumbes">Tumbes</option>
+                        <option value="Ucayali" id = "ucayali">Ucayali</option>
                       </select>
                       <br><br>  
                     <label for="csalud">Centro de salud:</label>
@@ -56,7 +60,7 @@
         
                         // Enable button only if there is text in the input field
                         document.querySelector('#csalud').onkeyup = () => {
-                            if (document.querySelector('#csalud').value.length > 0)
+                            if (document.querySelector('#csalud').value.length > 0 )
                                 document.querySelector('#submit').disabled = false;
                             else
                                 document.querySelector('#submit').disabled = true;
@@ -69,7 +73,7 @@
                             li.innerHTML = document.querySelector('#csalud').value;
         
                             // Clear input field and disable button again
-                            document.querySelector('#task').value = '';
+                            document.querySelector('#csalud').value = '';
                             document.querySelector('#submit').disabled = true;
         
                             // Stop form from submitting

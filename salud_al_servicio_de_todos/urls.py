@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path("", views.grafo_view),
-    path("api/grafo-data/", views.grafo_data_api),
+    path("api/grafo-data/", views.graph),
 ]
 
 

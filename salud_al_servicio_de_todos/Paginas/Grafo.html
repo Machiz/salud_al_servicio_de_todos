@@ -19,7 +19,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Obtener los datos del grafo desde el contexto de Django
-            const grafoData = JSON.parse('{{ grafo_data|safe }}');
+            const grafoData = JSON.parse('{{ graph|safe }}');
             
             var cy = cytoscape({
                 container: document.getElementById('cy'),

@@ -20,3 +20,6 @@ function getConexionRange() {
     const value = getConexionRange();
     lbl_size_conexion_ramge.innerText = `Conexion: ${value}%`;
   }
+  function getSizeMatrix() {
+    return parseInt(input_range.value);
+  }

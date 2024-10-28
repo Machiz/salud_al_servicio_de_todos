@@ -19,7 +19,24 @@
                 <h2>Bienvenido a salud al servicio de todos</h2>
                 <div class="text" id = "presentacion"> Esta es una plataforma abierta a todo publico, la cual tiene como objetivo ayudarte a encontrar el centro de salud mas cercano a tu ubicacion y la emergencia que tengas en Peru :D</div>
                 <br><br>
-                <form>
+                <div id="container">
+                    <div id="search_range">
+                      <div class="txt_lbl">
+                        <div class="search_lbl">
+                          <span id="search_range_lbl"></span>
+                          <input
+                            id="search_value_range"
+                            type="range"
+                            min="50"
+                            max="100"
+                            step="1"
+                            value="50"
+                          />
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br>
+                <form id = "centros">
                     <label for="departamento">Departamento  :</label>
                     <select name="departamento" id="provincia">
                         <option value="none" id = "none"></option>
@@ -86,22 +103,7 @@
                 </script>
         
                 </p>
-                <div id="container">
-                    <div id="search_range">
-                      <div class="txt_lbl">
-                        <div class="search_lbl">
-                          <span id="search_range_lbl"></span>
-                          <input
-                            id="search_value_range"
-                            type="range"
-                            min="50"
-                            max="100"
-                            step="1"
-                            value="50"
-                          />
-                        </div>
-                    </div>
-                </div>
+                
         </main>
     </div>
     <script src="interface.js"></script>

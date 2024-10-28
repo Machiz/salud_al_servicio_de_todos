@@ -23,7 +23,19 @@ header{
 #container {
     display: flex;
     justify-content: space-between;
-    width: 95%;
-    height: 90%;
     overflow: hidden;
-  }
+}
+#submit {
+    margin: 3px;
+    background-color: #f12323;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.7em;
+    padding: 4px 6px;
+    width: 100px;
+}
+#centros{
+    
+}

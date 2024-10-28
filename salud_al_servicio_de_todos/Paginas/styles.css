@@ -20,3 +20,10 @@ header{
   font-variation-settings:
     "wdth" 100;
 }
+#container {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    height: 90%;
+    overflow: hidden;
+  }

@@ -21,7 +21,7 @@ header{
     "wdth" 100;
 }
 #container {
-    display: flex;
+    /*display: flex;*/
     justify-content: space-between;
     overflow: hidden;
 }
@@ -36,6 +36,19 @@ header{
     padding: 4px 6px;
     width: 100px;
 }
-#centros{
-    
+.txt_lbl {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  #search_range {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.search_lbl {
+  display: flex;
+  align-items: center;
+  width: 48%;
 }

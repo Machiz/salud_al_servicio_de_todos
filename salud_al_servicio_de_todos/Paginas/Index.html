@@ -35,7 +35,8 @@
                         </div>
                     </div>
                 </div>
-                <br><br><br><br>
+                <br>
+                <div id = "local">
                 <form id = "centros">
                     <label for="departamento">Departamento  :</label>
                     <select name="departamento" id="provincia">
@@ -70,38 +71,8 @@
                     <label for="csalud">Centro de salud:</label>
                     <input type="text" id="csalud" name="csalud"><br><br>
                     <input type="submit" value="Submit" id = "submit">
-                  </form>
-                  <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-        
-                        // By default, submit button is disabled
-                        document.querySelector('#submit').disabled = true;
-        
-                        // Enable button only if there is text in the input field
-                        document.querySelector('#csalud').onkeyup = () => {
-                            if (document.querySelector('#csalud').value.length > 0 )
-                                document.querySelector('#submit').disabled = false;
-                            else
-                                document.querySelector('#submit').disabled = true;
-                        };
-        
-                        document.querySelector('form').onsubmit = () => {
-        
-                            // Create new item for list
-                            const li = document.createElement('li');
-                            li.innerHTML = document.querySelector('#csalud').value;
-        
-                            // Clear input field and disable button again
-                            document.querySelector('#csalud').value = '';
-                            document.querySelector('#submit').disabled = true;
-        
-                            // Stop form from submitting
-                            return false;
-                        };
-        
-                    });
-                </script>
-        
+                    </form>
+                </div>
                 </p>
                 
         </main>

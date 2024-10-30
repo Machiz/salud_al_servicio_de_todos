@@ -21,14 +21,24 @@ header{
     "wdth" 100;
 }
 #container {
-    /*display: flex;*/
-    justify-content: space-between;
-    overflow: hidden;
+    position: relative;
+    width: 700px;
+    height: 200px;
+}
+#search_value_range
+{
+    position:relative;
+    left: -3%;
+}
+
+#local
+{
+    position: inherit;
 }
 #submit {
     margin: 3px;
-    background-color: #f12323;
-    color: #ffffff;
+    /*background-color: #f12323;*/
+    /*color: #ffffff;*/
     border: none;
     border-radius: 5px;
     cursor: pointer;

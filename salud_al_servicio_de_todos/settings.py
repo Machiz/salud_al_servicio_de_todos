@@ -59,7 +59,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'salud_al_servicio_de_todos', 'Paginas')],  # Especificar la ruta correcta
         
         'APP_DIRS': True,
         'OPTIONS': {

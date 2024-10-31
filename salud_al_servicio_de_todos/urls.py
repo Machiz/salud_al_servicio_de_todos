@@ -19,8 +19,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.grafo_view),
-    path("api/grafo-data/", views.graph),
+    path('admin/', admin.site.urls),
+    path('', views.main_view),  # Ruta principal para mostrar la página de inicio
 ]
 
 

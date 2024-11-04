@@ -1,18 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salud al servicio de todos</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Ruta correcta para el archivo CSS -->
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
 
     <!-- Carga de fuente externa -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap');
     </style>
 
-    <!-- Carga de librería d3.js -->
-    <script src="{% static 'libs/d3.v7.min.js' %}"></script>
+    <!-- Carga de librería d3.js desde la ruta de static -->
+    <!--script src="{% static '/js/libs/d3.v7.min.js' %}"></script-->
 </head>
 <body>
     <div class="body">
@@ -82,6 +83,7 @@
             </div>
         </main>
     </div>
-    <script src="{% static 'interface.js' %}"></script>
+    <!-- Ruta correcta para el archivo JavaScript -->
+    <script src="{% static '/js/interface.js' %}"></script>
 </body>
 </html>

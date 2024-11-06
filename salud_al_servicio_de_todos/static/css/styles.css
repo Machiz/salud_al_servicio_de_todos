@@ -5,18 +5,23 @@
 }
 header{
     height: 100px;
-    width: 1900px;
+    width: 1500px;
     background-color: rgb(255, 0, 51);
 }
 body {
-    background-color: rgb(219, 219, 219);
+    background-color: rgb(245, 245, 245);
 }
 
 header{
     font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
+  font-size:x-large;
   font-weight: 700;
   font-style: italic;
+
+  text-align:center;
+  color: white;
+
   font-variation-settings:
     "wdth" 100;
 }

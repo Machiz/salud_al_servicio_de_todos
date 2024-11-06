@@ -55,7 +55,6 @@ ROOT_URLCONF = 'salud_al_servicio_de_todos.urls'
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

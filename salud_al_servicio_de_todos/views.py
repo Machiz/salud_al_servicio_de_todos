@@ -1,6 +1,4 @@
 # grafo_app/views.py
-import json
-import networkx as nx
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.http import HttpResponse

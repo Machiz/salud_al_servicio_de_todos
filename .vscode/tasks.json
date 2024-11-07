@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Crear entorno virtual e instalar dependencias",
+      "type": "shell",
+      "command": "if (!(Test-Path -Path \".venv\")) { python -m venv .venv; .\\.venv\\Scripts\\pip install -r requirements.txt } else { Write-Output \"El entorno virtual ya existe\" }",
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Crea el entorno virtual solo si no existe y luego instala las dependencias"
+    }
+  ]
+}

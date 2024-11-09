@@ -9,6 +9,9 @@ from . import grafo
 def main_view(request):
     # Esta vista renderiza la plantilla HTML para mostrar el grafo
     return render(request, 'index.html')
+def fol_view(request):
+    # Esta vista renderiza la plantilla HTML para mostrar el grafo
+    return render(request, 'folium_map.html')
 def graph(request):
     # Esta vista genera y retorna los datos del grafo en formato JSON
     grafo.dibujoGrafo()

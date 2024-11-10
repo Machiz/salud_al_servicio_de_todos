@@ -60,7 +60,7 @@ SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'salud_al_servicio_de_todos', 'templates')],  # Especificar la ruta correcta
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Especificar la ruta correcta
         
         'APP_DIRS': True,
         'OPTIONS': {
@@ -85,12 +85,7 @@ WSGI_APPLICATION = 'salud_al_servicio_de_todos.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = { }
 
 
 # Password validation
@@ -128,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'salud_al_servicio_de_todos','static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field

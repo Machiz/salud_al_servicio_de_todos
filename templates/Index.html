@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<!--
+ @license
+ Copyright 2019 Google LLC. All Rights Reserved.
+ SPDX-License-Identifier: Apache-2.0
+-->
+<html lang="es">
+  <head>
+    <meta
+      charset="utf-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Salud al servicio de todos</title>
+    <!-- Ruta correcta para el archivo CSS -->
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}" />
+
+    <!-- Carga de fuente externa -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap");
+    </style>
+
+    <!-- Carga de librería d3.js desde la ruta de static -->
+    <!--script src="{% static '/js/libs/d3.v7.min.js' %}"></script-->
+  </head>
+  <body>
+    <div class="body">
+      <header>
+        <h1 class="head">Salud al servicio de todos!</h1>
+      </header>
+      <main>
+        <h2>Bienvenido a salud al servicio de todos</h2>
+        <div class="text" id="presentacion">
+          Esta es una plataforma abierta a todo público, la cual tiene como
+          objetivo ayudarte a encontrar el centro de salud más cercano a tu
+          ubicación y la emergencia que tengas en Perú :D
+        </div>
+        <div id="map"></div>
+
+        <!-- prettier-ignore -->
+        <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${
+            c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+            ({key: "INSERT_YOUR_API_KEY", v: "weekly"});</script>
+        <br /><br />
+        <div id="container">
+          <div id="search_range">
+            <div class="txt_lbl">
+              <div class="search_lbl">
+                <span id="search_range_lbl"></span>
+                <input
+                  id="search_value_range"
+                  type="range"
+                  min="50"
+                  max="100"
+                  step="1"
+                  value="50"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div id="local">
+          <form id="centros">
+            <label for="departamento">Departamento:</label>
+            <select name="departamento" id="provincia">
+              <option value="none" id="none"></option>
+              <option value="Amazonas" id="amazonas">Amazonas</option>
+              <option value="Ancash" id="ancash">Ancash</option>
+              <option value="Apurimac" id="apurimac">Apurimac</option>
+              <option value="Arequipa" id="arequipa">Arequipa</option>
+              <option value="Ayacucho" id="ayacucho">Ayacucho</option>
+              <option value="Cajamarca" id="cajamarca">Cajamarca</option>
+              <option value="Callao" id="callao">Callao</option>
+              <option value="Cusco" id="cusco">Cusco</option>
+              <option value="Huancavelica" id="huancavelica">
+                Huancavelica
+              </option>
+              <option value="Huanuco" id="huanuco">Huanuco</option>
+              <option value="Ica" id="ica">Ica</option>
+              <option value="Junin" id="junin">Junin</option>
+              <option value="La Libertad" id="la_libertad">La Libertad</option>
+              <option value="Lambayeque" id="lambayeque">Lambayeque</option>
+              <option value="Lima" id="lima">Lima</option>
+              <option value="Loreto" id="loreto">Loreto</option>
+              <option value="Madre de Dios" id="madre_de_dios">
+                Madre De Dios
+              </option>
+              <option value="Moquegua" id="moquegua">Moquegua</option>
+              <option value="Pasco" id="pasco">Pasco</option>
+              <option value="Piura" id="piura">Piura</option>
+              <option value="Puno" id="puno">Puno</option>
+              <option value="San Martin" id="san_martin">San Martin</option>
+              <option value="Tacna" id="tacna">Tacna</option>
+              <option value="Tumbes" id="tumbes">Tumbes</option>
+              <option value="Ucayali" id="ucayali">Ucayali</option>
+            </select>
+            <br /><br />
+            <label for="csalud">Centro de salud:</label>
+            <input type="text" id="csalud" name="csalud" /><br /><br />
+            <input type="submit" value="Submit" id="submit" />
+          </form>
+        </div>
+
+        <iframe src="nx.html" height="600" width="1000"></iframe>
+      </main>
+    </div>
+    <!-- Ruta correcta para el archivo JavaScript -->
+    <script src="{% static '/js/interface.js' %}"></script>
+  </body>
+</html>

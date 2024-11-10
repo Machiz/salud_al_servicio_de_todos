@@ -96,4 +96,4 @@ def dibujar_grafo(num_nodos, dibujar_aristas=False):
 csv_size = 32900 # cantidad de datos aproximado en el csv
 
 dibujar_grafo(csv_size, True)
-m.save('salud_al_servicio_de_todos/templates/folium_map.html')
+m.save('templates/folium_map.html')

@@ -33,19 +33,18 @@ def haversine(lat1, lon1, lat2, lon2):
 
 def dibujar_grafo(num_nodos, dibujar_aristas=False):
   # se usa keep_default_na para que los valores vacios nos den un string vacio "" en vez de un "Nan"
-  df = pd.read_csv("salud_al_servicio_de_todos\Arreglado.csv", encoding='utf8', sep = ',', keep_default_na=False) # Lectura del .csv, datos separados por coma
-
+  df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',', keep_default_na=False) # Lectura del .csv, datos separados por coma
+  
   df = df.drop_duplicates(subset = 'nombre').head(num_nodos)
   
   nodos = []
   lim = 0
-  cantidad = 50
-  max_cantidad = 1200 # maxima cantidad de hospitales en Lima por ahora
-  cantidad = cantidad if cantidad <= max_cantidad else max_cantidad
+  cantidad = 1100
+  df = df.sample(n=cantidad)
 
   for index, row in df.iterrows():
 
-    if("LIMA" not in row['diresa']): continue  # Tomamos los departamentos que tengan LIMA en el nombre
+    # if("LIMA" not in row['diresa']): continue  # Tomamos los departamentos que tengan LIMA en el nombre
     if(row['latitud'] == "" or row['longitud'] == ""): continue # Algunos tienen la longitud o latitud vacios, no los queremos ver.
 
     if(lim >= cantidad): break
@@ -65,23 +64,22 @@ def dibujar_grafo(num_nodos, dibujar_aristas=False):
     ).add_to(m)
     nodos.append(row)
 
+  max_ar = 1
+  can_ar = 0
   if dibujar_aristas:
-    for i, row1 in enumerate(nodos):
-        for j, row2 in enumerate(nodos):
-            if i != j:
-                if("LIMA" not in row['diresa']): continue  # Tomamos los departamentos que tengan LIMA en el nombre
-                if(row['latitud'] == "" or row['longitud'] == ""): continue # Algunos tienen la longitud o latitud vacios, no los queremos ver.
-
-                if(row1['latitud'] == "" or row1['longitud'] == ""): continue
-                if(row2['latitud'] == "" or row2['longitud'] == ""): continue
+    for row1 in nodos:
+        can_ar = 0
+        for row2 in nodos:
+            if(can_ar >= max_ar): continue
+            if row1["id_eess"] != row2["id_eess"]:
                 
                 la1 = np.float32(row1['latitud'])
                 lo1 = np.float32(row1['longitud'])
                 la2 = np.float32(row2['latitud'])
                 lo2 = np.float32(row2['longitud'])
-
                 distancia = haversine(la1, lo1, la2, lo2)
-                if distancia <= 50:
+                if distancia <= 20:
+                    can_ar += 1
                     folium.PolyLine(
                         locations=[
                         [la1, lo1], 
@@ -92,8 +90,9 @@ def dibujar_grafo(num_nodos, dibujar_aristas=False):
                         tooltip= distancia,
                         
                     ).add_to(m)
+        
 
-csv_size = 32900 # cantidad de datos aproximado en el csv
+csv_size = 16368 # cantidad de datos aproximado en el csv
 
 dibujar_grafo(csv_size, True)
 m.save('templates/folium_map.html')

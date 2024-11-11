@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('folium_map.html', views.fol_view),
     path('', views.main_view),  # Ruta principal para mostrar la página de inicio
 ]
 

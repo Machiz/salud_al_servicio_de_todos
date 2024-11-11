@@ -1,5 +1,6 @@
 import folium
 import pandas as pd
+import IPython as ip
 import networkx as nx
 from pyvis.network import Network
 import numpy as np
@@ -31,46 +32,57 @@ def haversine(lat1, lon1, lat2, lon2):
     return round(distancia, 2) # Distancia aproximada a dos decimales
 
 
-def dibujar_grafo(num_nodos, dibujar_aristas=False):
+def optimizado_dibujar(num_nodos, cantidad, dibujar_aristas=False):
+  df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',', keep_default_na=False) # Lectura del .csv, datos separados por coma
+  df = df.drop_duplicates(subset = 'nombre')
+
+  for i in df.sample(n=cantidad).index:
+     la = df['latitud'].iloc[i]
+     if(la == ''): continue 
+     lo = df['longitud'].iloc[i]
+     ca = df['categoria'].iloc[i]
+     no = df['nombre'].iloc[i]
+
+     folium.Circle(
+            location=[la, lo],
+            radius=150,
+            fill_opacity=1,
+            fill_color="lightblue",
+            popup= no + " -" + ca,
+     ).add_to(m)
+     
+def dibujar_grafo(num_nodos, cantidad, dibujar_aristas=False):
   # se usa keep_default_na para que los valores vacios nos den un string vacio "" en vez de un "Nan"
   df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',', keep_default_na=False) # Lectura del .csv, datos separados por coma
   
-  df = df.drop_duplicates(subset = 'nombre').head(num_nodos)
+  df = df.drop_duplicates(subset = 'nombre')
   
-  nodos = []
-  lim = 0
-  cantidad = 1100
   df = df.sample(n=cantidad)
+  nodos = []
 
   for index, row in df.iterrows():
 
     # if("LIMA" not in row['diresa']): continue  # Tomamos los departamentos que tengan LIMA en el nombre
     if(row['latitud'] == "" or row['longitud'] == ""): continue # Algunos tienen la longitud o latitud vacios, no los queremos ver.
-
-    if(lim >= cantidad): break
-    lim += 1
-    
+    nombre = row['nombre']
     # Creamos un circulo de Folium que representa a un nodo.
     folium.Circle(
         location=[row['latitud'], row['longitud']],
-        radius=100,
+        radius=150,
         fill_opacity=1,
-        opacity=1,
-        weight = 0.5,
-        color = "black",
-        fill_color="green",
-        popup= str(row['categoria']),
-        tooltip= row['nombre'],
+        fill_color="lightblue",
+        popup= nombre + " -" + row['categoria'],
     ).add_to(m)
     nodos.append(row)
 
-  max_ar = 1
-  can_ar = 0
+  
   if dibujar_aristas:
+    max_ar = 4
+    can_ar = 0
     for row1 in nodos:
         can_ar = 0
         for row2 in nodos:
-            if(can_ar >= max_ar): continue
+            
             if row1["id_eess"] != row2["id_eess"]:
                 
                 la1 = np.float32(row1['latitud'])
@@ -87,12 +99,14 @@ def dibujar_grafo(num_nodos, dibujar_aristas=False):
                         ],
                         color="red",
                         weight=1,
-                        tooltip= distancia,
+                        popup= distancia,
                         
                     ).add_to(m)
         
 
 csv_size = 16368 # cantidad de datos aproximado en el csv
+cantidad = 1000 # maxima cantidad de Circles parece ser de 2060, por qué? no lo sé, maxima cantidad de Circle Markers?
+dibujar_grafo(csv_size, cantidad, True)
+# optimizado_dibujar(csv_size,cantidad, False)
 
-dibujar_grafo(csv_size, True)
 m.save('templates/folium_map.html')

@@ -5,7 +5,7 @@
 }
 header{
     height: 100px;
-    width: 1500px;
+    width: 100%;
     background-color: rgb(255, 0, 51);
 }
 body {
@@ -27,13 +27,8 @@ header{
 }
 #container {
     position: relative;
-    width: 700px;
+    width: 400px;
     height: 200px;
-}
-#search_value_range
-{
-    position:relative;
-    left: -3%;
 }
 
 #local
@@ -41,6 +36,7 @@ header{
     position: inherit;
 }
 #submit {
+    position: relative;
     margin: 3px;
     /*background-color: #f12323;*/
     /*color: #ffffff;*/

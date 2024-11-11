@@ -36,33 +36,27 @@
           objetivo ayudarte a encontrar el centro de salud más cercano a tu
           ubicación y la emergencia que tengas en Perú :D
         </div>
-        <div id="map"></div>
-
-        <!-- prettier-ignore -->
-        <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${
-            c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-            ({key: "INSERT_YOUR_API_KEY", v: "weekly"});</script>
         <br /><br />
-        <div id="container">
-          <div id="search_range">
-            <div class="txt_lbl">
-              <div class="search_lbl">
-                <span id="search_range_lbl"></span>
-                <input
-                  id="search_value_range"
-                  type="range"
-                  min="50"
-                  max="100"
-                  step="1"
-                  value="50"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
         <div id="local">
           <form id="centros">
+            <div id="container">
+              <div id="search_range">
+                <div class="txt_lbl">
+                  <div class="search_lbl">
+                    <span id="search_range_lbl"></span>
+                    <input
+                      id="search_value_range"
+                      type="range"
+                      min="50"
+                      max="100"
+                      step="1"
+                      value="50"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br><br>
             <label for="departamento">Departamento:</label>
             <select name="departamento" id="provincia">
               <option value="none" id="none"></option>
@@ -96,14 +90,32 @@
               <option value="Tumbes" id="tumbes">Tumbes</option>
               <option value="Ucayali" id="ucayali">Ucayali</option>
             </select>
+            <label for="categoria">categoria:</label>
+            <select name="categoria" id="nivel">
+              <option value="none" id="none"></option>
+              <option value="I-1" id="I-1">I-1</option>
+              <option value="I-2" id="I-2">I-2</option>
+              <option value="I-3" id="I-3">I-3</option>
+              <option value="I-4" id="I-4">I-4</option>
+              <option value="II-1" id="II-1">II-1</option>
+              <option value="II-2" id="II-2">II-2</option>
+              <option value="II-E" id="II-E">II-E</option>
+              <option value="III-1" id="III-1">III-1</option>
+              <option value="III-E" id="III-E">III-2</option>
+              <option value="III-2" id="III-2">III-3</option>
+              <option value="SD" id="SD">SD</option>
+            </select>
             <br /><br />
-            <label for="csalud">Centro de salud:</label>
+            <label for="csalud">Centro de salud inicial:</label>
             <input type="text" id="csalud" name="csalud" /><br /><br />
+            <label for="csaludf">Centro de salud final:</label>
+            <input type="textf" id="csaludf" name="csaludf" /><br /><br>
             <input type="submit" value="Submit" id="submit" />
+            <br><br><br>
           </form>
         </div>
 
-        <iframe src="folium_map.html" height="650" width="1000"></iframe>
+        <iframe src="folium_map.html" height="650" width="1000" id = "mapa"></iframe>
       </main>
     </div>
     <!-- Ruta correcta para el archivo JavaScript -->

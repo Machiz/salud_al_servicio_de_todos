@@ -27,10 +27,31 @@ header{
 }
 #container {
     position: relative;
-    width: 400px;
-    height: 200px;
+    width: 500px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+#search_range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    padding: 20px;
+    flex-direction: column;
+}
+
+#search_range_lbl {
+    font-size: 14px;
+    white-space: pre-wrap; /* Permite que el texto se divida en varias líneas */
+    text-align: right; /* Alinea el texto a la derecha para una mejor presentación */
+}
+
+#search_value_range {
+    width: 200px;
+}
 #local
 {
     position: inherit;
@@ -47,19 +68,17 @@ header{
     padding: 4px 6px;
     width: 100px;
 }
-.txt_lbl {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  #search_range {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
 .search_lbl {
   display: flex;
   align-items: center;
   width: 48%;
+}
+#mapa 
+{
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    left : 100px;
 }

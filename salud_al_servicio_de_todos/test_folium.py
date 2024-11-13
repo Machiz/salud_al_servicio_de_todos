@@ -106,7 +106,7 @@ def dibujar_grafo(num_nodos, cantidad, dibujar_aristas=False):
 
 csv_size = 16368 # cantidad de datos aproximado en el csv
 cantidad = 1000 # maxima cantidad de Circles parece ser de 2060, por qué? no lo sé, maxima cantidad de Circle Markers?
-dibujar_grafo(csv_size, cantidad, False)
+dibujar_grafo(csv_size, cantidad, True)
 # optimizado_dibujar(csv_size,cantidad, False)
 
 m.save('templates/folium_map.html')

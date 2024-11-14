@@ -38,80 +38,82 @@
         </div>
         <br /><br />
         <div id="local">
-          <form id="centros">
-            <div id="container">
-              <div id="search_range">
-                <div class="txt_lbl">
-                  <div class="search_lbl">
-                    <span id="search_range_lbl"></span>
-                    <input
-                      id="search_value_range"
-                      type="range"
-                      min="50"
-                      max="100"
-                      step="1"
-                      value="50"
-                    />
+          <form id="centros" method="POST">
+            <div class="container">
+                <div id="search_range">
+                  <div class="txt_lbl">
+                    <div class="search_lbl">
+                      <span id="search_range_lbl"></span>
+                      <input
+                        id="search_value_range"
+                        type="range"
+                        min="50"
+                        max="100"
+                        step="1"
+                        value="50"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <br><br>
-            <label for="departamento">Departamento:</label>
-            <select name="departamento" id="provincia">
-              <option value="none" id="none"></option>
-              <option value="Amazonas" id="amazonas">Amazonas</option>
-              <option value="Ancash" id="ancash">Ancash</option>
-              <option value="Apurimac" id="apurimac">Apurimac</option>
-              <option value="Arequipa" id="arequipa">Arequipa</option>
-              <option value="Ayacucho" id="ayacucho">Ayacucho</option>
-              <option value="Cajamarca" id="cajamarca">Cajamarca</option>
-              <option value="Callao" id="callao">Callao</option>
-              <option value="Cusco" id="cusco">Cusco</option>
-              <option value="Huancavelica" id="huancavelica">
+            
+              <br><br>
+              <label for="departamento">Departamento:</label>
+              <select name="departamento" id="provincia">
+                <option value="none" id="none"></option>
+                <option value="Amazonas" id="amazonas">Amazonas</option>
+                <option value="Ancash" id="ancash">Ancash</option>
+                <option value="Apurimac" id="apurimac">Apurimac</option>
+                <option value="Arequipa" id="arequipa">Arequipa</option>
+                <option value="Ayacucho" id="ayacucho">Ayacucho</option>
+                <option value="Cajamarca" id="cajamarca">Cajamarca</option>
+                <option value="Callao" id="callao">Callao</option>
+                <option value="Cusco" id="cusco">Cusco</option>
+                <option value="Huancavelica" id="huancavelica">
                 Huancavelica
-              </option>
-              <option value="Huanuco" id="huanuco">Huanuco</option>
-              <option value="Ica" id="ica">Ica</option>
-              <option value="Junin" id="junin">Junin</option>
-              <option value="La Libertad" id="la_libertad">La Libertad</option>
-              <option value="Lambayeque" id="lambayeque">Lambayeque</option>
-              <option value="Lima" id="lima">Lima</option>
-              <option value="Loreto" id="loreto">Loreto</option>
-              <option value="Madre de Dios" id="madre_de_dios">
-                Madre De Dios
-              </option>
-              <option value="Moquegua" id="moquegua">Moquegua</option>
-              <option value="Pasco" id="pasco">Pasco</option>
-              <option value="Piura" id="piura">Piura</option>
-              <option value="Puno" id="puno">Puno</option>
-              <option value="San Martin" id="san_martin">San Martin</option>
-              <option value="Tacna" id="tacna">Tacna</option>
-              <option value="Tumbes" id="tumbes">Tumbes</option>
-              <option value="Ucayali" id="ucayali">Ucayali</option>
-            </select>
-            <label for="categoria">categoria:</label>
-            <select name="categoria" id="nivel">
-              <option value="none" id="none"></option>
-              <option value="I-1" id="I-1">I-1</option>
-              <option value="I-2" id="I-2">I-2</option>
-              <option value="I-3" id="I-3">I-3</option>
-              <option value="I-4" id="I-4">I-4</option>
-              <option value="II-1" id="II-1">II-1</option>
-              <option value="II-2" id="II-2">II-2</option>
-              <option value="II-E" id="II-E">II-E</option>
-              <option value="III-1" id="III-1">III-1</option>
-              <option value="III-E" id="III-E">III-2</option>
-              <option value="III-2" id="III-2">III-3</option>
-              <option value="SD" id="SD">SD</option>
-            </select>
-            <br /><br />
-            <label for="csalud">Centro de salud inicial:</label>
-            <input type="text" id="csalud" name="csalud" /><br /><br />
-            <label for="csaludf">Centro de salud final:</label>
-            <input type="textf" id="csaludf" name="csaludf" /><br /><br>
-            <input type="submit" value="Submit" id="submit" />
-            <br><br><br>
+                </option>
+                <option value="Huanuco" id="huanuco">Huanuco</option>
+                <option value="Ica" id="ica">Ica</option>
+                <option value="Junin" id="junin">Junin</option>
+                <option value="La Libertad" id="la_libertad">La Libertad</option>
+                <option value="Lambayeque" id="lambayeque">Lambayeque</option>
+                <option value="Lima" id="lima">Lima</option>
+                <option value="Loreto" id="loreto">Loreto</option>
+                <option value="Madre de Dios" id="madre_de_dios">
+                  Madre De Dios
+                </option>
+                <option value="Moquegua" id="moquegua">Moquegua</option>
+                <option value="Pasco" id="pasco">Pasco</option>
+                <option value="Piura" id="piura">Piura</option>
+                <option value="Puno" id="puno">Puno</option>
+                <option value="San Martin" id="san_martin">San Martin</option>
+                <option value="Tacna" id="tacna">Tacna</option>
+                <option value="Tumbes" id="tumbes">Tumbes</option>
+                <option value="Ucayali" id="ucayali">Ucayali</option>
+              </select>
+              <label for="categoria">categoria:</label>
+              <select name="categoria" id="nivel">
+                <option value="none" id="none"></option>
+                <option value="I-1" id="I-1">I-1</option>
+                <option value="I-2" id="I-2">I-2</option>
+                <option value="I-3" id="I-3">I-3</option>
+                <option value="I-4" id="I-4">I-4</option>
+                <option value="II-1" id="II-1">II-1</option>
+                <option value="II-2" id="II-2">II-2</option>
+                <option value="II-E" id="II-E">II-E</option>
+                <option value="III-1" id="III-1">III-1</option>
+                <option value="III-E" id="III-E">III-2</option>
+                <option value="III-2" id="III-2">III-3</option>
+                <option value="SD" id="SD">SD</option>
+              </select>
+              <br /><br />
+              <label for="csalud">Centro de salud inicial:</label>
+              <input type="text" id="csalud" name="csalud" /><br /><br />
+              <label for="csaludf">Centro de salud final:</label>
+              <input type="textf" id="csaludf" name="csaludf" /><br /><br>
+              <input type="submit" value="Submit" id="submit" />
+              <br><br><br>
+            </div>
           </form>
         </div>
 

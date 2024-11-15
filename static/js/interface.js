@@ -2,12 +2,12 @@ const slider = document.getElementById("search_value_range");
 const outputLabel = document.getElementById("search_range_lbl");
 
 // Establecemos el valor inicial al cargar la página
-outputLabel.textContent = `Rango de centros de salud  en la zona: ${slider.value} km`;
+outputLabel.textContent = `Rango de centros de salud en la zona: ${slider.value} km`;
 
 // Función para actualizar el valor del rango
 slider.addEventListener("input", function() {
     // Actualizamos el texto con el valor actual del rango
-    outputLabel.textContent = `Rango de centros de salud  en la zona: ${slider.value} km`;
+    outputLabel.textContent = `Rango de centros de salud en la zona: ${slider.value} km`;
 });
 //para que el forms solo sea recibido al tener todos los datos
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,26 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Enable button only if there is text in the input field
   document.querySelector('#csalud').onkeyup = () => {
-      if (document.querySelector('#csalud').value.length > 0  && document.querySelector('#provincia').value !='none' && document.querySelector('#search_range_lbl').value !=0)
+      if (document.querySelector('#csalud').value.length > 0 && document.querySelector('#csaludf').value.length > 0 && document.querySelector('#provincia').value !='none' 
+       && document.querySelector('#categoria').value !='none'){
           document.querySelector('#submit').disabled = false;
-      else
+      }
+      else{
           document.querySelector('#submit').disabled = true;
           document.querySelector('#submit').style.backgroundColor = '#f12323';
+      }
   };
 
   document.querySelector('form').onsubmit = () => {
-
-      // Create new item for list
-      const li = document.createElement('li');
-      li.innerHTML = document.querySelector('#csalud').value;
-
       // Clear input field and disable button again
       document.querySelector('#csalud').value = '';
+      document.querySelector('#csaludf').value = '';
       document.querySelector('#provincia').value = 'none';
-      out
+      document.querySelector('#categoria').value ='none';
       document.querySelector('#search_range_lbl').value = 50 ;
       document.querySelector('#submit').disabled = true;
-
       // Stop form from submitting
       return false;
   };

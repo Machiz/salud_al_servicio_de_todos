@@ -19,8 +19,8 @@ def haversine(lat1, lon1, lat2, lon2):
     return round(distancia, 2) # Distancia aproximada a dos decimales
 
     # Calcular las distancias
-    distancias = R * c
-    return distancias
+    #distancias = R * c
+    #return distancias
 
 # Hora de leer el archivo .xlsx
 import re

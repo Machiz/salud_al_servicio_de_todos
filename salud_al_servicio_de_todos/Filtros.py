@@ -64,8 +64,7 @@ plt.show()
 # Ahora, veamos qué
 # Buscar hospitales por categoría
 # Implementación:
-def buscar_hospital_por_categoria(G, cat):
-  df = pd.read_csv('TB_EESS - TB_EESS.csv', sep = ',') # Se lee el .csv
+def buscar_hospital_por_categoria(df, cat):
   df_cat = df[df['categoria'].str.lower() == cat.lower()] # Búsqueda de hospitales con categoría coincidente a la ingresada.
 
   G_cat = nx.Graph()

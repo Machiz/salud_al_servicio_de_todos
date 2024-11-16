@@ -5,7 +5,7 @@ import time
 import numpy as np
 import networkx as nx
 import heapq as hp
-from math import radians, sin, cos, sqrt, atan2
+from math import radians, sin, cos, sqrt, atan2, inf
 
 
 min_lon, max_lon = -55, -95 # estos valores nos ayudan a restringir el movimiento del usuario en el mapa
@@ -31,8 +31,8 @@ def haversine(lat1, lon1, lat2, lon2):
     distancia = 6371.0 * c
     return round(distancia, 2) # Distancia aproximada a dos decimales
 
-def create_Dataframe():
-    df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',') # Lectura del .csv, datos separados por coma
+def create_Dataframe(cantidad):
+    df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',').head(cantidad) # Lectura del .csv, datos separados por coma
     return df
 
 def filtrar(departamento):
@@ -154,18 +154,96 @@ def folium_from_nx(row, df, graph, mapa):
               popup= distancia,
           ).add_to(mapa)
 
+def apply_categoria(row, df_cat, graph):
+  # Búsqueda de hospitales con categoría coincidente a la ingresada.
+
+  graph.add_node(row['nombre'])
+  la = row['latitud']
+  lo = row['longitud']
+  no = row['nombre']
+  # Agregando aristas al grafo G_dep, si la distancia entre hospitales es <= 80 km
+  for j in range(len(df_cat)):
+    if row["id_eess"] == df_cat["id_eess"].iloc[j]: continue
+    
+    distancia = haversine(la, lo, df_cat['latitud'].iloc[j], df_cat['longitud'].iloc[j])
+    if distancia <= 50:
+      graph.add_edge(no, df_cat['nombre'].iloc[j], weight = distancia)
+
+def buscar_hospital_por_categoria(categoria):
+  df_cat = df[df['categoria'] == categoria]
+  graph_cat = nx.Graph()
+  df_cat.apply(apply_categoria, axis=1, args=(df_cat, graph_cat,))
+  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m))
+  print("hola")
+  m.save('templates/folium_map.html')
+
+def dijkstra_dos_puntos(G, start_node, end_node):
+  node_to_index = {node: i for i, node in enumerate(G.nodes())}
+  index_to_node = {i: node for node, i in node_to_index.items()}
+  n = len(G)
+
+  visited = [False]*n
+  path = [-1]*n
+  cost = [inf]*n # Se inicializa en número infinitos
+
+  start_index = node_to_index[start_node]
+  cost[start_index] = 0
+  # Creando cola pqueue
+  pqueue = [(0, start_index)]
+
+  while pqueue:
+    g, u = hp.heappop(pqueue)
+
+    if u == end_node: # Si se llega al nodo destino, sale del ciclo while
+      break
+
+    if not visited[u]:
+      visited[u] = True # Se marca como vértice visitado
+
+      for neighbor in G.neighbors(index_to_node[u]):
+        v = node_to_index[neighbor]
+        if not visited[v]:
+          if G.has_edge(index_to_node[u], index_to_node[v]):
+            weight = G[index_to_node[u]][index_to_node[v]]['weight']
+            f = g + weight
+            if f < cost[v]:
+              cost[v] = f
+              path[v] = u
+              hp.heappush(pqueue, (f, v))
+
+    ruta = [] # Ruta para reconstruir el camino del nodo inicio al final
+    # Crear grafo
+    G_camino = nx.Graph()
+    end_index = node_to_index[end_node]
+
+    if cost[end_index] < inf:
+      current_node = end_index
+      while current_node != -1:
+        ruta.append(index_to_node[current_node])
+        current_node = path[current_node]
+      ruta.reverse()
+
+    # Agregar los nodos (dentro de camino)
+    # para crear grafo del camino más cortos entre nodos
+    for i in range(len(ruta) - 1):
+      G_camino.add_edge(ruta[i], ruta[i + 1], weight = G[ruta[i]][ruta[i + 1]]['weight'])
+
+
+  return ruta, cost[end_index], G_camino
+
 csv_size = 16368 # cantidad de datos aproximado en el csv
-cantidad = 100 # maxima cantidad de Circles parece ser de 2060, por qué? no lo sé, maxima cantidad de Circle Markers?
+cantidad = 1000 # maxima cantidad de Circles parece ser de 2060, por qué? no lo sé, maxima cantidad de Circle Markers?
 # dibujar_grafo(csv_size, cantidad, False)
 
-df = create_Dataframe()    # creamos dataframe
-df = df.sample(n=cantidad) # elegir datos dispersos del dataframe
+df = create_Dataframe(cantidad)    # creamos dataframe
 
 graph = nx.Graph()
 
-df.apply(create_networkx, axis=1, args=(df, graph,)) # creamos grafo networkx
 t = time.time()
-df.apply(folium_from_nx, axis=1, args=(df, graph, m))
+# df.apply(create_networkx, axis=1, args=(df, graph,)) # creamos grafo networkx
+
+# # busqueda por categoria
+
 # df.apply(apply_dibujar, axis=1, args=(df,False))
 print((time.time() - t) * 1000, "ms")
 m.save('templates/folium_map.html')

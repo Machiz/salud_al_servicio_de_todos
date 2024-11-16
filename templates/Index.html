@@ -38,7 +38,7 @@
         </div>
         <br /><br />
         <div id="local">
-          <form id="centros" method="POST">
+          <form id="centros" action="{% url 'grafo_final' %}"method="POST">
             <div class="container">
                 <div id="search_range">
                   <div class="txt_lbl">
@@ -111,7 +111,7 @@
               <input type="text" id="csalud" name="csalud" /><br /><br />
               <label for="csaludf">Centro de salud final:</label>
               <input type="textf" id="csaludf" name="csaludf" /><br /><br>
-              <input type="submit" value="Submit" id="submit" />
+              <button type="submit" id="submit">Submit</button>
               <br><br><br>
             </div>
           </form>

@@ -11,35 +11,35 @@ slider.addEventListener("input", function() {
 });
 //para que el forms solo sea recibido al tener todos los datos
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // By default, submit button is disabled
+    document.querySelector('#submit').disabled = true;
+  
+    // Enable button only if there is text in the input field
+    document.querySelector('#csalud').onkeyup = () => {
+        if (document.querySelector('#csalud').value.length > 0 && document.querySelector('#csaludf').value.length > 0 && document.querySelector('#provincia').value !='none' 
+         && document.querySelector('#categoria').value !='none'){
+            document.querySelector('#submit').disabled = false;
+        }
+        else{
+            document.querySelector('#submit').disabled = true;
+            document.querySelector('#submit').style.backgroundColor = '#f12323';
+        }
+    };
+  
+    document.querySelector('form').onsubmit = () => {
+        // Optionally, you can clear input fields before submission
+        document.querySelector('#csalud').value = '';
+        document.querySelector('#csaludf').value = '';
+        document.querySelector('#provincia').value = 'none';
+        document.querySelector('#categoria').value ='none';
+        document.querySelector('#search_range_lbl').value = 50 ;
         
-  // By default, submit button is disabled
-  document.querySelector('#submit').disabled = true;
-
-  // Enable button only if there is text in the input field
-  document.querySelector('#csalud').onkeyup = () => {
-      if (document.querySelector('#csalud').value.length > 0 && document.querySelector('#csaludf').value.length > 0 && document.querySelector('#provincia').value !='none' 
-       && document.querySelector('#categoria').value !='none'){
-          document.querySelector('#submit').disabled = false;
-      }
-      else{
-          document.querySelector('#submit').disabled = true;
-          document.querySelector('#submit').style.backgroundColor = '#f12323';
-      }
-  };
-
-  document.querySelector('form').onsubmit = () => {
-      // Clear input field and disable button again
-      document.querySelector('#csalud').value = '';
-      document.querySelector('#csaludf').value = '';
-      document.querySelector('#provincia').value = 'none';
-      document.querySelector('#categoria').value ='none';
-      document.querySelector('#search_range_lbl').value = 50 ;
-      document.querySelector('#submit').disabled = true;
-      // Stop form from submitting
-      return false;
-  };
-
-});
+        // Allow the form to submit normally
+        return true; // Or just remove this line
+    };
+  
+  });
 //maps api (probably moved to another file)
 // let map;
 

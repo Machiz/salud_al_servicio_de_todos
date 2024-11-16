@@ -11,21 +11,20 @@ slider.addEventListener("input", function() {
 });
 //para que el forms solo sea recibido al tener todos los datos
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // By default, submit button is disabled
     document.querySelector('#submit').disabled = true;
-  
+
     // Enable button only if there is text in the input field
     document.querySelector('#csalud').onkeyup = () => {
-        if (document.querySelector('#csalud').value.length > 0 && document.querySelector('#csaludf').value.length > 0 && document.querySelector('#provincia').value !='none' 
-         && document.querySelector('#categoria').value !='none'){
+        if (document.querySelector('#csalud').value.length > 0){
             document.querySelector('#submit').disabled = false;
-        }
-        else{
-            document.querySelector('#submit').disabled = true;
             document.querySelector('#submit').style.backgroundColor = '#f12323';
         }
+        else
+            document.querySelector('#submit').disabled = true;
     };
+
   
     document.querySelector('form').onsubmit = () => {
         // Optionally, you can clear input fields before submission

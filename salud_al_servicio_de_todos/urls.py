@@ -25,7 +25,5 @@ urlpatterns = [
     path('grafo', views.formulario_procesado, name='grafo_final'),
 ]
 
-
-
 # grafo_app/urls.py
 

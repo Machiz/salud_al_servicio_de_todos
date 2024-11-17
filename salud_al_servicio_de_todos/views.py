@@ -30,7 +30,7 @@ def formulario_procesado(request):
         elif provincia != 'none' and categoria != 'none': 
             test_folium.graph, test_folium.dij_df = test_folium.buscar_doble(provincia, categoria)
         elif provincia != 'none':    
-            test_folium.buscar_hospital_por_rapido(provincia)
+            test_folium.buscar_hospital_por_departamento(provincia)
         elif categoria != 'none':
             test_folium.buscar_hospital_por_categoria(categoria)
         

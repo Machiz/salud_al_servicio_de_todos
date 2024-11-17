@@ -35,14 +35,7 @@ def create_Dataframe(cantidad):
     df = pd.read_csv("data\out.csv", encoding='utf8', sep = ',').head(cantidad) # Lectura del .csv, datos separados por coma
     return df
 
-def filtrar(departamento):
-  mapa = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
-    min_lat=min_lat,max_lat=max_lat,
-    min_lon=min_lon,max_lon=max_lon,)
-  df.apply(apply_departamento, axis=1, args=(df,departamento, mapa))
-  mapa.save('templates/folium_map.html')
-
-def apply_departamento(row, df,graph,mapa, dist):
+def apply_(row, df,graph,mapa, dist, max_ar):
   la = row['latitud']
   lo = row['longitud']
   ca = row['categoria']
@@ -59,7 +52,6 @@ def apply_departamento(row, df,graph,mapa, dist):
         popup= no + " -" + ca,
   ).add_to(mapa)
 
-  max_ar = 3
   ar = 0
   for j in range(len(df)):
     if ar >= max_ar: break
@@ -210,15 +202,16 @@ def buscar_hospital_por_categoria(categoria):
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
   
-  print("empezo networkx")
-  df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 10))
+  print("empezo el sample...")
+  df_cat = df_cat.sample(n=1500 if len(df_cat) >= 1500 else len(df_cat))
+  print("empezo networkx..")
+  df_cat.apply(apply_, axis=1, args=(df_cat, graph_cat, ma, 10, 2))
   print("acabo networkx")
-  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, ma, 10))
   print("acabo folium")
   ma.save('templates/folium_map.html')
   print("finish!", graph_cat.number_of_nodes())
 
-def buscar_hospital_por_rapido(departamento):
+def buscar_hospital_por_departamento(departamento):
   print("busqueda por departamento....")
   df_dep = pd.DataFrame(columns=df.columns)
   departamento = departamento.upper()
@@ -233,7 +226,7 @@ def buscar_hospital_por_rapido(departamento):
   dist = 2 if departamento == 'LIMA' else 10
   print("empezo networkx y folium")
 
-  df_dep.apply(apply_departamento, axis=1, args=(df_dep, graph_cat, ma, dist))
+  df_dep.apply(apply_, axis=1, args=(df_dep, graph_cat, ma, dist, 3))
 
   print("acabo networkx y folium")
 
@@ -255,7 +248,7 @@ def buscar_doble(departamento, categoria):
 
   print("empezo networkx")
   dist = 2 if departamento == 'LIMA' else 10
-  df_cat.apply(apply_departamento, axis=1, args=(df_cat, graph_cat, ma, dist)) # pasar grafo a networkx
+  df_cat.apply(apply_, axis=1, args=(df_cat, graph_cat, ma, dist, 3)) # pasar grafo a networkx
   print("acabo networkx")
   
   print("acabo folium")

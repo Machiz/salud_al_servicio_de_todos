@@ -28,12 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
     document.querySelector('form').onsubmit = () => {
         // Optionally, you can clear input fields before submission
-        document.querySelector('#csalud').value = '';
-        document.querySelector('#csaludf').value = '';
-        document.querySelector('#provincia').value = 'none';
-        document.querySelector('#categoria').value ='none';
-        document.querySelector('#search_range_lbl').value = 50 ;
-        
         // Allow the form to submit normally
         return true; // Or just remove this line
     };

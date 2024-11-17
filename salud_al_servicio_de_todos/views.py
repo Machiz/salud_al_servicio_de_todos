@@ -9,7 +9,7 @@ from . import test_folium
 def main_view(request):
     # con esto se validan los parametros
     # Esta vista renderiza la plantilla HTML para mostrar el grafo
-    
+    test_folium.start_map()
     return render(request, 'index.html')
 def fol_view(request):
     # Esta vista renderiza la plantilla HTML para mostrar el grafo

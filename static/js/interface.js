@@ -43,6 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+<<<<<<< HEAD
+=======
+  
+    document.querySelector('form').onsubmit = () => {
+        // Optionally, you can clear input fields before submission
+        // Allow the form to submit normally
+        return true; // Or just remove this line
+    };
+  
+  });
+>>>>>>> 736cddbdbba82200880fe2889a4897599bc84724
 //maps api (probably moved to another file)
 // let map;
 

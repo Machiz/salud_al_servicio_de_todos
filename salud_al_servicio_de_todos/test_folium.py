@@ -7,6 +7,16 @@ import networkx as nx
 import heapq as hp
 from math import radians, sin, cos, sqrt, atan2, inf
 
+# lat - long
+dep_Coords = {"LIMA": (-11.9856,-76.6461), "AMAZONAS": (-5.0362,-78.0084), 
+              "AREQUIPA": (-15.9666,-72.3669), "CUSCO": (-12.8439,-72.4164),
+              "ICA":(-14.5251,-75.5090), "LORETO": (-5.1402,-74.9982), "CALLAO":(-11.9641,-77.1151),
+              "CAJAMARCA":(-6.2880, -78.8214), "PIURA": (-5.0526, -80.3156), "ANCASH":(-9.6305,-77.4976),
+              "TACNA":(-17.6493,-70.3015), "APURIMAC":(), "LAMBAYEQUE":( -6.3508, -79.9750), "SAN MARTIN": ( -7.0464,-76.8246),
+              "UCAYALI": ( -9.0316, -73.5123), "MOQUEGUA":(-16.8781,-70.8838), "PUNO": (-15.0138, -69.9747),
+              "MADE DE DIOS": (-12.0017, -70.2411), "JUNIN" : ( -11.5042, -74.9982), "PASCO":(-10.4973, -75.2481),
+              "HUANUCO": (-9.5520, -75.2481), "LA LIBERTAD": ( -8.0266, -78.4726), "TUMBES":(-3.8149, -80.5408),
+              "HUANCAVELICA": (-12.9805, -75.0229), "AYACUCHO":(-14.0380, -73.9819)}
 
 min_lon, max_lon = -55, -95 # estos valores nos ayudan a restringir el movimiento del usuario en el mapa
 min_lat, max_lat = -30, 20
@@ -218,8 +228,8 @@ def buscar_hospital_por_departamento(departamento):
   df.apply(apply_df_dep, axis=1, args=(df_dep, departamento))
   df_dep = df_dep.sample(n=1500 if len(df_dep) >=1500 else len(df_dep))
   graph_cat = nx.Graph()
-
-  ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
+  #[-8.35, -74.6972]
+  ma = folium.Map(dep_Coords[departamento], zoom_start=8, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
   
@@ -336,7 +346,6 @@ print("SE CREO EL DATASET....")
 
 graph = nx.Graph()
 dij_df = pd.DataFrame()
-
 
 def start_map():
   af = df.sample(n = 1500)

@@ -177,14 +177,6 @@ def folium_from_dijkstra(row, df, graph, mapa):
             popup= distancia,
         ).add_to(mapa)
 
-def buscar_hospital_por_categoria(categoria):
-  df_cat = df[df['categoria'] == categoria]
-  graph_cat = nx.Graph()
-  df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 50))
-  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m, 50))
-  m.save('templates/folium_map.html')
-  print("finish!", graph_cat.number_of_nodes())
-
 def apply_networkx(row, df, graph, dist):
   # Búsqueda de hospitales segun departamento
   graph.add_node(row['nombre'])
@@ -204,16 +196,34 @@ def apply_df_dep(row, df, departamento):
     i = len(df.index)
     df.loc[i] = row
 
+def buscar_hospital_por_categoria(categoria):
+  df_cat = df[df['categoria'] == categoria]
+  graph_cat = nx.Graph()
+  ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
+    min_lat=min_lat,max_lat=max_lat,
+    min_lon=min_lon,max_lon=max_lon,)
+
+  df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 10))
+  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, ma, 10))
+  ma.save('templates/folium_map.html')
+  print("finish!", graph_cat.number_of_nodes())
+
 def buscar_hospital_por_departamento(departamento):
   df_dep = pd.DataFrame(columns=df.columns)
   departamento = departamento.upper()
   df.apply(apply_df_dep, axis=1, args=(df_dep, departamento))
-  df_dep = df_dep.sample(n=500)
-  print("head")
+  df_dep = df_dep.sample(n=500 if len(df_dep) >=500 else len(df_dep))
   graph_cat = nx.Graph()
-  df_dep.apply(apply_networkx, axis=1, args=(df_dep, graph_cat, 2)) # pasar grafo a networkx
-  df_dep.apply(folium_from_nx, axis=1, args=(df_dep, graph_cat, m, 2)) # leer networkx con folium
-  m.save('templates/folium_map.html')
+
+  ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
+    min_lat=min_lat,max_lat=max_lat,
+    min_lon=min_lon,max_lon=max_lon,)
+  
+  dist = 2 if departamento == 'LIMA' else 10
+
+  df_dep.apply(apply_networkx, axis=1, args=(df_dep, graph_cat, dist)) # pasar grafo a networkx
+  df_dep.apply(folium_from_nx, axis=1, args=(df_dep, graph_cat, ma, dist)) # leer networkx con folium
+  ma.save('templates/folium_map.html')
   print("finish! ", graph_cat.number_of_nodes())
   
 def buscar_doble(departamento, categoria):
@@ -230,8 +240,8 @@ def buscar_doble(departamento, categoria):
     min_lon=min_lon,max_lon=max_lon,)
   
   df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 2)) # pasar grafo a networkx
-  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m, 2)) # leer networkx con folium
-  m.save('templates/folium_map.html')
+  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, ma, 2)) # leer networkx con folium
+  ma.save('templates/folium_map.html')
   print("finish! ", graph_cat.number_of_nodes())
   return graph_cat, df_cat
 
@@ -241,9 +251,9 @@ def dijkstra(start, end):
   dijkstra_dos_puntos(graph, start.strip(), end.strip())
 
 def dijkstra_dos_puntos(G, start_node, end_node):
-  # print(G.nodes)
-  # print("edges....")
-  # print(G.edges)
+  print(G.nodes)
+  print("edges....")
+  print(G.edges)
   node_to_index = {node.strip(): i for i, node in enumerate(G.nodes())}
   index_to_node = {i: node.strip() for node, i in node_to_index.items()}
   n = len(G)
@@ -296,7 +306,6 @@ def dijkstra_dos_puntos(G, start_node, end_node):
 
   print("RUTA: ",ruta)
   print(cost[end_index])
-  print(G_camino)
 
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
@@ -310,13 +319,13 @@ cantidad = 1500 # maxima cantidad de Circles parece ser de 2060, por qué? no lo
 
 df = create_Dataframe(csv_size)# creamos dataframe
 
+
+
 graph = nx.Graph()
 dij_df = pd.DataFrame()
 
-t = time.time()
 
-# # busqueda por categoria
-
-# df.apply(apply_dibujar, axis=1, args=(df,False))
-print((time.time() - t) * 1000, "ms")
-m.save('templates/folium_map.html')
+def start_map():
+  af = df.sample(n = 1500)
+  af.apply(apply_dibujar, axis = 1, args=(af, False))
+  m.save('templates/folium_map.html')

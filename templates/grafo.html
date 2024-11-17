@@ -4,16 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>grafo output</title>
+    <title>Salud al servicio de todos</title>
+    <!-- Ruta correcta para el archivo CSS -->
+    <link rel="stylesheet" href="{% static '/css/styles_grafo.css' %}" />
 </head>
 <body>
     <header>
         <h1 class="head">Salud al servicio de todos!</h1>
+        <!--img src = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fseeklogo.com%2Fvector-logo%2F402620%2Funiversidad-peruana-de-ciencias-aplicadas-upc&psig=AOvVaw0bJrWc0j97lckusn8l9nh3&ust=1731905636315000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCICAzbbJ4okDFQAAAAAdAAAAABAg" alt = "UPSEX" width = "100px" height = "100px"-->
+        <!--img src="{% static 'UPC.png' %}" alt="Universidad de Ciencias Aplicadas UPC" width = "100px" height = "100px"--> 
     </header>
-    <div class="text" id="presentacion">
-        Esta es una plataforma abierta a todo público, la cual tiene como
-        objetivo ayudarte a encontrar el centro de salud más cercano a tu
-        ubicación y la emergencia que tengas en Perú :D
-    </div>
-</body>
+    <p>
+       Un trabajo enfocado en aquellos que no tienen las mismas oportunidades...
+       ¡Saluda para muchos, salud para todos!
+    </p>
+    
+    <iframe src="folium_map.html" id = "mapa"></iframe>
+    <hr>
+    <footer>
+        <h5>Integrantes:</h5>
+        <ul>
+            <li>Marcelo Hernandez</li>
+            <li>Alessandro Hesse</li>
+            <li>Mauricio Canchis</li>
+        </ul>
+    </footer>
 </html>

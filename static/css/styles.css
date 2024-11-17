@@ -18,40 +18,34 @@ header{
   font-size:x-large;
   font-weight: 700;
   font-style: italic;
-
   text-align:center;
   color: white;
-
   font-variation-settings:
     "wdth" 100;
 }
-#container {
-    position: relative;
-    width: 500px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 #search_range {
-    display: flex;
+    flex: 10;
     align-items: center;
-    gap: 10px;
-    flex: 1;
-    padding: 20px;
-    flex-direction: column;
+    gap: 40px;
+    display: flex;
+    padding-left: 15px;
 }
 
-#search_range_lbl {
+.search_lbl {
+    
+    flex-direction: column; /* Cambia el eje principal para apilar el texto */
+    align-items: flex-start; /* Alinea el texto a la derecha */
+    gap: 10px; /* Ajusta el espacio entre el texto y el deslizador */
+    padding: 10px;
     font-size: 14px;
-    white-space: pre-wrap; /* Permite que el texto se divida en varias líneas */
-    text-align: right; /* Alinea el texto a la derecha para una mejor presentación */
+    text-align: right;
 }
 
 #search_value_range {
-    width: 200px;
+    padding-top: 5px;
+    width: 150px;
 }
+
 #local
 {
     position: inherit;

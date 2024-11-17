@@ -107,20 +107,6 @@ def apply_dibujar(row, df, aristas = False):
               popup= distancia,
           ).add_to(m)
 
-def create_networkx(row, df, graph):
-  graph.add_node(row['nombre'])
-  la = row['latitud']
-  lo = row['longitud']
-  for j in range(len(df)):
-    if row["id_eess"] != df["id_eess"].iloc[j]: 
-      la1 = np.float32(la)
-      lo1 = np.float32(lo)
-      la2 = np.float32(df['latitud'].iloc[j])
-      lo2 = np.float32(df['longitud'].iloc[j])
-      distancia = haversine(la1, lo1, la2, lo2)
-      if distancia <= 20:
-        graph.add_edge(row['nombre'], df['nombre'].iloc[j], weight= distancia)  
-
 def folium_from_nx(row, df, graph, mapa, dist):
   for i in list(graph.nodes):
     if(i != row['nombre']): continue
@@ -176,7 +162,7 @@ def folium_from_dijkstra(row, df, graph, mapa):
     if(a > 0): # si podemos retroceder en la lista nodos, buscamos el nodo anterior en el df
       for j in range(len(df)):
         if df['nombre'].iloc[j] != nodos[a - 1]: continue
-        
+
         la1 = np.float32(la)
         lo1 = np.float32(lo)
         la2 = np.float32(df['latitud'].iloc[j])
@@ -195,7 +181,7 @@ def buscar_hospital_por_categoria(categoria):
   df_cat = df[df['categoria'] == categoria]
   graph_cat = nx.Graph()
   df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 50))
-  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m))
+  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m, 50))
   m.save('templates/folium_map.html')
   print("finish!", graph_cat.number_of_nodes())
 
@@ -237,30 +223,35 @@ def buscar_doble(departamento, categoria):
   df_dep = df_dep.sample(n=500)
 
   df_cat = df_dep[df_dep['categoria'] == categoria]
-  print("head")
   graph_cat = nx.Graph()
+
+  ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
+    min_lat=min_lat,max_lat=max_lat,
+    min_lon=min_lon,max_lon=max_lon,)
   
   df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 2)) # pasar grafo a networkx
-  print("finished networkx...")
   df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, m, 2)) # leer networkx con folium
-  print("finished folium map...")
   m.save('templates/folium_map.html')
   print("finish! ", graph_cat.number_of_nodes())
   return graph_cat, df_cat
 
 def dijkstra(start, end):
-  dijkstra_dos_puntos(graph, start, end)
+  # print(start, start.strip())
+  # print(start, start.replace(" ", ""))
+  dijkstra_dos_puntos(graph, start.strip(), end.strip())
 
 def dijkstra_dos_puntos(G, start_node, end_node):
-  node_to_index = {node: i for i, node in enumerate(G.nodes())}
-  index_to_node = {i: node for node, i in node_to_index.items()}
+  # print(G.nodes)
+  # print("edges....")
+  # print(G.edges)
+  node_to_index = {node.strip(): i for i, node in enumerate(G.nodes())}
+  index_to_node = {i: node.strip() for node, i in node_to_index.items()}
   n = len(G)
 
   visited = [False]*n
   path = [-1]*n
   cost = [inf]*n # Se inicializa en número infinitos
 
-  start_index = node_to_index[start_node]
   start_index = node_to_index[start_node]
   cost[start_index] = 0
   # Creando cola pqueue
@@ -307,17 +298,10 @@ def dijkstra_dos_puntos(G, start_node, end_node):
   print(cost[end_index])
   print(G_camino)
 
-  gr = nx.Graph()
-  for i in range(len(ruta)):
-    gr.add_node(ruta[i])
-  
-  for i in range(len(ruta) - 1):
-    gr.add_edge(ruta[i], ruta[i + 1])
-
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
-  dij_df.apply(folium_from_dijkstra, axis=1, args=(dij_df, gr, ma))
+  dij_df.apply(folium_from_dijkstra, axis=1, args=(dij_df, G_camino, ma))
   ma.save('templates/folium_map.html')
 
 csv_size = 16368 # cantidad de datos aproximado en el csv
@@ -330,7 +314,6 @@ graph = nx.Graph()
 dij_df = pd.DataFrame()
 
 t = time.time()
-# df.apply(create_networkx, axis=1, args=(df, graph,)) # creamos grafo networkx
 
 # # busqueda por categoria
 

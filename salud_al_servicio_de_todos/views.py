@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from . import test_folium
 #from . import djikstra
 
 @csrf_exempt
@@ -15,7 +16,8 @@ def main_view(request):
         categoria = request.POST.get('categoria')
 
         # You can do something with the data here, like saving it to the database
-
+        test_folium.buscar_hospital_por_categoria(categoria)
+        print("corre el post")
         # Redirect to another page after processing
         return HttpResponse("Do something")  # Redirect to the URL named 'another_page'
     # Esta vista renderiza la plantilla HTML para mostrar el grafo
@@ -26,5 +28,6 @@ def fol_view(request):
 #funcion para el formulario parametrado
 @csrf_exempt
 def formulario_procesado(request):
+    print("form procesado")
     return render(request, 'folium_map.html')
     

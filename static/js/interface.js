@@ -21,14 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputProvincia = document.querySelector('#provincia');
     const inputNivel = document.querySelector('#nivel');
     const inputCsaludF = document.querySelector('#csaludf');
-
+    const inputFrame = document.querySelector('#mapa');
     // Add event listener for 'keyup' on each input field
     inputCsalud.onkeyup = checkFormValidity;
     inputProvincia.onchange = checkFormValidity;
     inputNivel.onchange = checkFormValidity;
     inputCsaludF.onkeyup = checkFormValidity;
+    inputFrame.onkeyup = reloadFrame;
 
     // Function to check the form validity
+
+    function reloadFrame(){
+        document.getElementById('mapa').src = document.getElementById('mapa').src
+
+    }
+
     function checkFormValidity() {
         if (
             (inputCsalud.value.length > 0 && inputCsaludF.value.length > 0) ||

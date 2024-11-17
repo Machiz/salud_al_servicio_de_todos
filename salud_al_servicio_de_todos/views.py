@@ -30,10 +30,9 @@ def formulario_procesado(request):
         elif provincia != 'none' and categoria != 'none': 
             test_folium.graph, test_folium.dij_df = test_folium.buscar_doble(provincia, categoria)
         elif provincia != 'none':    
-            test_folium.buscar_hospital_por_departamento(provincia)
-        elif provincia != 'none':    
+            test_folium.buscar_hospital_por_rapido(provincia)
+        elif categoria != 'none':
             test_folium.buscar_hospital_por_categoria(categoria)
-            
         
         # Redirect to another page after processing
         return render(request, 'folium_map.html')  # Redirect to the URL named 'another_page'

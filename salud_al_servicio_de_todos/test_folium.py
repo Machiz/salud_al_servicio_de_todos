@@ -42,13 +42,14 @@ def filtrar(departamento):
   df.apply(apply_departamento, axis=1, args=(df,departamento, mapa))
   mapa.save('templates/folium_map.html')
 
-def apply_departamento(row, df, departamento, mapa):
-  if(departamento not in row['diresa']): return
-
+def apply_departamento(row, df,graph,mapa, dist):
   la = row['latitud']
   lo = row['longitud']
   ca = row['categoria']
   no = row['nombre']
+
+  graph.add_node(row['nombre'])
+  # Agregando aristas al grafo G_dep, si la distancia entre hospitales es <= 80 km
 
   folium.Circle(
         location=[la, lo],
@@ -58,22 +59,27 @@ def apply_departamento(row, df, departamento, mapa):
         popup= no + " -" + ca,
   ).add_to(mapa)
 
+  max_ar = 3
+  ar = 0
   for j in range(len(df)):
-      if row["id_eess"] != df["id_eess"].iloc[j]: 
-            la1 = np.float32(la)
-            lo1 = np.float32(lo)
-            la2 = np.float32(df['latitud'].iloc[j])
-            lo2 = np.float32(df['longitud'].iloc[j])
-            distancia = haversine(la1, lo1, la2, lo2)
-            if distancia <= 20:
-                folium.PolyLine(
-                    locations=[
-                    [la1, lo1], 
-                    [la2, lo2],],
-                    color="red",
-                    weight=1,
-                    popup= distancia,
-                ).add_to(mapa)
+    if ar >= max_ar: break
+    if row["id_eess"] != df["id_eess"].iloc[j]: 
+      la1 = np.float32(la)
+      lo1 = np.float32(lo)
+      la2 = np.float32(df['latitud'].iloc[j])
+      lo2 = np.float32(df['longitud'].iloc[j])
+      distancia = haversine(la1, lo1, la2, lo2)
+      if distancia <= dist:
+        ar += 1
+        graph.add_edge(no, df['nombre'].iloc[j], weight = distancia)
+        folium.PolyLine(
+          locations=[
+          [la1, lo1], 
+          [la2, lo2],],
+          color="red",
+          weight=1,
+          popup= distancia,
+        ).add_to(mapa)
 
 def apply_dibujar(row, df, aristas = False):
   la = row['latitud']
@@ -198,21 +204,26 @@ def apply_df_dep(row, df, departamento):
 
 def buscar_hospital_por_categoria(categoria):
   df_cat = df[df['categoria'] == categoria]
+  print("busqueda por categoria....")
   graph_cat = nx.Graph()
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
-
+  
+  print("empezo networkx")
   df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 10))
+  print("acabo networkx")
   df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, ma, 10))
+  print("acabo folium")
   ma.save('templates/folium_map.html')
   print("finish!", graph_cat.number_of_nodes())
 
-def buscar_hospital_por_departamento(departamento):
+def buscar_hospital_por_rapido(departamento):
+  print("busqueda por departamento....")
   df_dep = pd.DataFrame(columns=df.columns)
   departamento = departamento.upper()
   df.apply(apply_df_dep, axis=1, args=(df_dep, departamento))
-  df_dep = df_dep.sample(n=500 if len(df_dep) >=500 else len(df_dep))
+  df_dep = df_dep.sample(n=1500 if len(df_dep) >=1500 else len(df_dep))
   graph_cat = nx.Graph()
 
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
@@ -220,9 +231,12 @@ def buscar_hospital_por_departamento(departamento):
     min_lon=min_lon,max_lon=max_lon,)
   
   dist = 2 if departamento == 'LIMA' else 10
+  print("empezo networkx y folium")
 
-  df_dep.apply(apply_networkx, axis=1, args=(df_dep, graph_cat, dist)) # pasar grafo a networkx
-  df_dep.apply(folium_from_nx, axis=1, args=(df_dep, graph_cat, ma, dist)) # leer networkx con folium
+  df_dep.apply(apply_departamento, axis=1, args=(df_dep, graph_cat, ma, dist))
+
+  print("acabo networkx y folium")
+
   ma.save('templates/folium_map.html')
   print("finish! ", graph_cat.number_of_nodes())
   
@@ -230,7 +244,7 @@ def buscar_doble(departamento, categoria):
   df_dep = pd.DataFrame(columns=df.columns)
   departamento = departamento.upper()
   df.apply(apply_df_dep, axis=1, args=(df_dep, departamento))
-  df_dep = df_dep.sample(n=500)
+  df_dep = df_dep.sample(n=1500 if len(df_dep) >=1500 else len(df_dep))
 
   df_cat = df_dep[df_dep['categoria'] == categoria]
   graph_cat = nx.Graph()
@@ -238,9 +252,13 @@ def buscar_doble(departamento, categoria):
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
+
+  print("empezo networkx")
+  dist = 2 if departamento == 'LIMA' else 10
+  df_cat.apply(apply_departamento, axis=1, args=(df_cat, graph_cat, ma, dist)) # pasar grafo a networkx
+  print("acabo networkx")
   
-  df_cat.apply(apply_networkx, axis=1, args=(df_cat, graph_cat, 2)) # pasar grafo a networkx
-  df_cat.apply(folium_from_nx, axis=1, args=(df_cat, graph_cat, ma, 2)) # leer networkx con folium
+  print("acabo folium")
   ma.save('templates/folium_map.html')
   print("finish! ", graph_cat.number_of_nodes())
   return graph_cat, df_cat
@@ -319,7 +337,7 @@ cantidad = 1500 # maxima cantidad de Circles parece ser de 2060, por qué? no lo
 
 df = create_Dataframe(csv_size)# creamos dataframe
 
-
+print("SE CREO EL DATASET....")
 
 graph = nx.Graph()
 dij_df = pd.DataFrame()

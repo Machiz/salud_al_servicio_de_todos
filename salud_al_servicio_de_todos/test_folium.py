@@ -237,9 +237,11 @@ def buscar_doble(departamento, categoria):
   df_dep = pd.DataFrame(columns=df.columns)
   departamento = departamento.upper()
   df.apply(apply_df_dep, axis=1, args=(df_dep, departamento))
-  df_dep = df_dep.sample(n=1500 if len(df_dep) >=1500 else len(df_dep))
+  # df_dep = df_dep.sample(n=1500 if len(df_dep) >=1500 else len(df_dep))
 
   df_cat = df_dep[df_dep['categoria'] == categoria]
+  df_cat = df_cat.sample(n=1500 if len(df_cat) >=1500 else len(df_cat))
+
   graph_cat = nx.Graph()
 
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,

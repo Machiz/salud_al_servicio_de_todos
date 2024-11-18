@@ -150,7 +150,7 @@ def folium_from_nx(row, df, graph, mapa, dist):
               popup= distancia,
           ).add_to(mapa)
 
-def folium_from_dijkstra(row, df, graph, mapa):
+def folium_from_dijkstra(row, df, graph, mapa, costo):
   nodos = list(graph.nodes)
   for a, i in enumerate(nodos):
     if(i != row['nombre']): continue
@@ -181,9 +181,15 @@ def folium_from_dijkstra(row, df, graph, mapa):
             [la1, lo1], 
             [la2, lo2],],
             color="red",
-            weight=1,
+            weight=4,
             popup= distancia,
         ).add_to(mapa)
+    else:
+      folium.Marker(
+      location= (la + 1, lo -1),
+      popup= "camino más corto es de " + str(costo) + "km.",
+      tooltip= "Camino más corto"
+    ).add_to(mapa)
 
 def apply_networkx(row, df, graph, dist):
   # Búsqueda de hospitales segun departamento
@@ -274,9 +280,7 @@ def dijkstra(start, end):
   dijkstra_dos_puntos(graph, start.strip(), end.strip())
 
 def dijkstra_dos_puntos(G, start_node, end_node):
-  print(G.nodes)
-  print("edges....")
-  print(G.edges)
+
   node_to_index = {node.strip(): i for i, node in enumerate(G.nodes())}
   index_to_node = {i: node.strip() for node, i in node_to_index.items()}
   n = len(G)
@@ -327,13 +331,12 @@ def dijkstra_dos_puntos(G, start_node, end_node):
     for i in range(len(ruta) - 1):
       G_camino.add_edge(ruta[i], ruta[i + 1], weight = G[ruta[i]][ruta[i + 1]]['weight'])
 
-  print("RUTA: ",ruta)
-  print(cost[end_index])
-
   ma = folium.Map([-8.35, -74.6972], zoom_start=6, tiles= "CartoDB.Positron", min_zoom = 5, max_zoom=15,  max_bounds=True,
     min_lat=min_lat,max_lat=max_lat,
     min_lon=min_lon,max_lon=max_lon,)
-  dij_df.apply(folium_from_dijkstra, axis=1, args=(dij_df, G_camino, ma))
+  
+
+  dij_df.apply(folium_from_dijkstra, axis=1, args=(dij_df, G_camino, ma, cost[end_index]))
   ma.save('templates/folium_map.html')
 
 csv_size = 16368 # cantidad de datos aproximado en el csv

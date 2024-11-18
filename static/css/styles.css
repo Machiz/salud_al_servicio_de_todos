@@ -78,6 +78,7 @@ header{
 }
 #catdesc
 {
-    position: absolute;
-    padding-left: 600px;
+    position:absolute ;
+    /*padding-left: 700px;*/
+    margin-left: 600px;
 }

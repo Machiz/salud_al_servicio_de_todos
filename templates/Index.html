@@ -38,7 +38,7 @@
         </div>
         <br /><br />
         <div id="local">
-          <form id="centros" method="POST">
+          <form id="centros" action="{% url 'grafo_final' %}" method="POST">
             <div class="container">
                 <div id="search_range">
                   <div class="txt_lbl">
@@ -47,10 +47,10 @@
                       <input
                         id="search_value_range"
                         type="range"
-                        min="50"
-                        max="100"
+                        min="0"
+                        max="30"
                         step="1"
-                        value="50"
+                        value="0"
                         required
                       />
                     </div>
@@ -116,19 +116,20 @@
             </div>
           </form>
         </div>
-
-        <ul> 
-          <li> I-1: Establecimientos sin médicos cirujanos, pero con profesionales de la salud</li>
-          <li> I-2: Establecimientos con cirujanos y profesionales de salud. Puestos de salud o consultorios médicos</li>
-          <li> I-3: Centro de salud especializado, asegura atención de emergencias y urgencias</li>
-          <li> I-4: Centros con camas de internamiento, enfocadas en atención familiar y comunitaria</li>
-          <li> II-1: Establecimientos de atención general, recursos más abundantes que los anteriores</li>
-          <li> II-2: Hospitales y clínicas con mayor especialización</li>
-          <li> II-E: Unidades médicas más complejas, como medicina interna, pediatría y cirugía general</li>
-          <li> III-1: Hospitales o clínicas con mayores unidades productoras de servicios de salud. Atención integral ambulatoria</li>
-          <li> III-E: Especialidades en cirugías con subespecialidades, recursos humanos y médicos intensivos</li>
-          <li> III-2: Clínias con alto nivel tecnológico, institutos especializados, numerosas especialidades</li>
-        </ul>
+        <div id ="catdesc">Descripcion de categorias
+          <ul> 
+            <li> I-1: Establecimientos sin médicos cirujanos, pero con profesionales de la salud</li>
+            <li> I-2: Establecimientos con cirujanos y profesionales de salud. Puestos de salud o consultorios médicos</li>
+            <li> I-3: Centro de salud especializado, asegura atención de emergencias y urgencias</li>
+            <li> I-4: Centros con camas de internamiento, enfocadas en atención familiar y comunitaria</li>
+            <li> II-1: Establecimientos de atención general, recursos más abundantes que los anteriores</li>
+            <li> II-2: Hospitales y clínicas con mayor especialización</li>
+            <li> II-E: Unidades médicas más complejas, como medicina interna, pediatría y cirugía general</li>
+            <li> III-1: Hospitales o clínicas con mayores unidades productoras de servicios de salud. Atención integral ambulatoria</li>
+            <li> III-E: Especialidades en cirugías con subespecialidades, recursos humanos y médicos intensivos</li>
+            <li> III-2: Clínias con alto nivel tecnológico, institutos especializados, numerosas especialidades</li>
+          </ul>
+        </div>
         <iframe src="folium_map.html" height="650" width="1000" id = "mapa"></iframe>
       </main>
     </div>

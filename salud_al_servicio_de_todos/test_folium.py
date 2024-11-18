@@ -12,7 +12,7 @@ dep_Coords = {"LIMA": (-11.9856,-76.6461), "AMAZONAS": (-5.0362,-78.0084),
               "AREQUIPA": (-15.9666,-72.3669), "CUSCO": (-12.8439,-72.4164),
               "ICA":(-14.5251,-75.5090), "LORETO": (-5.1402,-74.9982), "CALLAO":(-11.9641,-77.1151),
               "CAJAMARCA":(-6.2880, -78.8214), "PIURA": (-5.0526, -80.3156), "ANCASH":(-9.6305,-77.4976),
-              "TACNA":(-17.6493,-70.3015), "APURIMAC":(), "LAMBAYEQUE":( -6.3508, -79.9750), "SAN MARTIN": ( -7.0464,-76.8246),
+              "TACNA":(-17.6493,-70.3015), "APURIMAC":( -14.0860, -72.9822), "LAMBAYEQUE":( -6.3508, -79.9750), "SAN MARTIN": ( -7.0464,-76.8246),
               "UCAYALI": ( -9.0316, -73.5123), "MOQUEGUA":(-16.8781,-70.8838), "PUNO": (-15.0138, -69.9747),
               "MADE DE DIOS": (-12.0017, -70.2411), "JUNIN" : ( -11.5042, -74.9982), "PASCO":(-10.4973, -75.2481),
               "HUANUCO": (-9.5520, -75.2481), "LA LIBERTAD": ( -8.0266, -78.4726), "TUMBES":(-3.8149, -80.5408),
@@ -353,4 +353,5 @@ dij_df = pd.DataFrame()
 def start_map():
   af = df.sample(n = 1500)
   af.apply(apply_dibujar, axis = 1, args=(af, False))
+  m.add_child(folium.LatLngPopup())
   m.save('templates/folium_map.html')

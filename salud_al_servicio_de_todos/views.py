@@ -35,6 +35,6 @@ def formulario_procesado(request):
             test_folium.buscar_hospital_por_categoria(categoria)
         
         # Redirect to another page after processing
-        return render(request, 'folium_map.html')  # Redirect to the URL named 'another_page'
+        return render(request, 'grafo.html')  # Redirect to the URL named 'another_page'
     return render(request, 'folium_map.html')
     

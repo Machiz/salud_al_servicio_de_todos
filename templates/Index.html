@@ -17,7 +17,10 @@
     <link rel="stylesheet" href="{% static '/css/styles.css' %}" />
 
     <!-- Carga de fuente externa -->
-
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap");
+    </style>
+    
     <!-- Carga de librería d3.js desde la ruta de static -->
     <!--script src="{% static '/js/libs/d3.v7.min.js' %}"></script-->
   </head>
@@ -35,7 +38,7 @@
         </div>
         <br /><br />
         <div id="local">
-          <form id="centros" action="{% url 'grafo_final' %}"method="POST">
+          <form id="centros" method="POST">
             <div class="container">
                 <div id="search_range">
                   <div class="txt_lbl">
@@ -43,18 +46,18 @@
                       <span id="search_range_lbl"></span>
                       <input
                         id="search_value_range"
-                        name="rango"
                         type="range"
-                        min="0"
-                        max="30"
+                        min="50"
+                        max="100"
                         step="1"
-                        value="0"
+                        value="50"
                         required
                       />
                     </div>
                   </div>
                 </div>
             
+              <br><br>
               <label for="departamento">Departamento:</label>
               <select name="departamento" id="provincia">
                 <option value="none" id="none"></option>
@@ -88,7 +91,7 @@
                 <option value="Tumbes" id="tumbes">Tumbes</option>
                 <option value="Ucayali" id="ucayali">Ucayali</option>
               </select>
-              <label for="categoria">categoria:</label>
+              <label for="categoria">Categoría:</label>
               <select name="categoria" id="nivel">
                 <option value="none" id="none"></option>
                 <option value="I-1" id="I-1">I-1</option>
@@ -108,12 +111,24 @@
               <input type="text" id="csalud" name="csalud" /><br /><br />
               <label for="csaludf">Centro de salud final:</label>
               <input type="textf" id="csaludf" name="csaludf" /><br /><br>
-              <button type="submit" id="submit">Submit</button>
+              <input type="submit" value="Submit" id="submit" />
               <br><br><br>
             </div>
           </form>
         </div>
 
+        <ul> 
+          <li> I-1: Establecimientos sin médicos cirujanos, pero con profesionales de la salud</li>
+          <li> I-2: Establecimientos con cirujanos y profesionales de salud. Puestos de salud o consultorios médicos</li>
+          <li> I-3: Centro de salud especializado, asegura atención de emergencias y urgencias</li>
+          <li> I-4: Centros con camas de internamiento, enfocadas en atención familiar y comunitaria</li>
+          <li> II-1: Establecimientos de atención general, recursos más abundantes que los anteriores</li>
+          <li> II-2: Hospitales y clínicas con mayor especialización</li>
+          <li> II-E: Unidades médicas más complejas, como medicina interna, pediatría y cirugía general</li>
+          <li> III-1: Hospitales o clínicas con mayores unidades productoras de servicios de salud. Atención integral ambulatoria</li>
+          <li> III-E: Especialidades en cirugías con subespecialidades, recursos humanos y médicos intensivos</li>
+          <li> III-2: Clínias con alto nivel tecnológico, institutos especializados, numerosas especialidades</li>
+        </ul>
         <iframe src="folium_map.html" height="650" width="1000" id = "mapa"></iframe>
       </main>
     </div>
